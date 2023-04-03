@@ -8,8 +8,7 @@
     "lint:fix": "eslint ./src --ext .jsx,.js,.ts,.tsx --quiet --fix --ignore-path ./.gitignore",
     "lint:format": "prettier  --loglevel warn --write \"./**/*.{js,jsx,ts,tsx,css,md,json}\" ",
     "lint": "npm run lint:format && npm run lint:fix ",
-    "type-check": "tsc",
-    "precommit": "npm run lint"
+    "type-check": "tsc"
   },
   "husky": {
     "hooks": {
@@ -29,8 +28,6 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "husky": "^8.0.3",
-    "pre-commit": "^1.2.2",
     "prettier": "^2.5.1",
     "typescript": "^4.5.5",
     "vite": "^2.9.12"
