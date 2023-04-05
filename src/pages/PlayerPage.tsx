@@ -1,10 +1,10 @@
 import SpotmixPlayer from '../organisms/SpotmixPlayer';
+import MainSideTemplate from '../templates/MainSideTemplate';
 
 export default function PlayerPage() {
   return (
     <>
-      <h1>Player</h1>
-      <SpotmixPlayer></SpotmixPlayer>
+      <MainSideTemplate main={<SpotmixPlayer />} sidebar={<p>side</p>} />
     </>
   );
 }
