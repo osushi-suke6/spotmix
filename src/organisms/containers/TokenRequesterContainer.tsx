@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 const CLIENT_ID = '45841e6544c0477a983f3f89cfd22e26';
 const REDIRECT_URI = 'http://localhost:3000/callback';
 
-export default function CallbackValidaterContainer() {
+export default function TokenRequesterContainer() {
   useEffect(() => {
     let ignore = false;
 
@@ -49,12 +49,16 @@ const requestAccessToken = async (code: string) => {
     body,
   });
 
-  console.log(response);
-
-  if (!response.ok) throw new Error('HTTP status ' + response.status);
+  if (!response.ok) {
+    window.location.href = '/login';
+    throw new Error('HTTP status ' + response.status);
+  }
 
   const json = await response.json();
+  console.log(json);
   localStorage.setItem('access-token', json.access_token);
+  localStorage.setItem('refresh-token', json.refresh_token);
 
   console.log('access Token set');
+  window.location.href = '/player';
 };
