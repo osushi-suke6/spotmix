@@ -5,7 +5,7 @@ export default function PlayerPage() {
   return (
     <>
       <MainSideTemplate
-        header={<p>head</p>}
+        header={<h1>Spotmix</h1>}
         main={<p>main</p>}
         sidebar={<p>side</p>}
         bottom={<SpotmixPlayer />}

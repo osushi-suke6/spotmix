@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import styled from 'styled-components';
 
 interface IProps {
   header?: ReactNode;
@@ -8,22 +9,38 @@ interface IProps {
   footer?: ReactNode;
 }
 
-export default function MainSideBottomTemplate({
-  header,
-  main,
-  sidebar,
-  bottom,
-  footer,
-}: IProps) {
+export default function MainSideBottomTemplate(props: IProps) {
+  const SHeader = styled.header``;
+
+  const Flex = styled.div`
+    display: flex;
+  `;
+
+  const SMain = styled.main`
+    width: 80%;
+  `;
+
+  const SAside = styled.aside`
+    width: 20%;
+  `;
+
+  const SBottom = styled.div`
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  `;
+
   return (
     <>
-      {header && <header>{header}</header>}
-      <div style={{ display: 'flex' }}>
-        <main>{main}</main>
-        {sidebar && <aside>{sidebar}</aside>}
-      </div>
-      {bottom && <div id="bottom">{bottom}</div>}
-      {footer && <footer>{footer}</footer>}
+      {props.header && <SHeader>{props.header}</SHeader>}
+      <Flex>
+        <SMain>{props.main}</SMain>
+        {props.sidebar && <SAside>{props.sidebar}</SAside>}
+      </Flex>
+      <SBottom>
+        {props.bottom && <div id="bottom">{props.bottom}</div>}
+        {props.footer && <footer>{props.footer}</footer>}
+      </SBottom>
     </>
   );
 }
