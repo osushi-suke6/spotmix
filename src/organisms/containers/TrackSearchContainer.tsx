@@ -8,7 +8,12 @@ export default function TrackSearchContainer() {
 
   const search = async () => {
     const token = localStorage.getItem('access-token') ?? '';
-    const res = await fetch('https://api.spotify.com/v1/me', {
+    const args = {
+      q: 'beatles',
+      type: 'track',
+    };
+    const params = new URLSearchParams(args);
+    const res = await fetch('https://api.spotify.com/v1/search?' + params, {
       //mode: 'no-cors',
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` },
