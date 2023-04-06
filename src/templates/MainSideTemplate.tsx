@@ -10,26 +10,6 @@ interface IProps {
 }
 
 export default function MainSideBottomTemplate(props: IProps) {
-  const SHeader = styled.header``;
-
-  const Flex = styled.div`
-    display: flex;
-  `;
-
-  const SMain = styled.main`
-    width: 80%;
-  `;
-
-  const SAside = styled.aside`
-    width: 20%;
-  `;
-
-  const SBottom = styled.div`
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-  `;
-
   return (
     <>
       {props.header && <SHeader>{props.header}</SHeader>}
@@ -44,3 +24,23 @@ export default function MainSideBottomTemplate(props: IProps) {
     </>
   );
 }
+
+const SHeader = styled.header``;
+
+const Flex = styled.div`
+  display: flex;
+`;
+
+const SMain = styled.main`
+  width: 80%;
+`;
+
+const SAside = styled.aside`
+  width: 20%;
+`;
+
+const SBottom = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+`;
