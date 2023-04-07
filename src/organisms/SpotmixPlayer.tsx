@@ -1,11 +1,11 @@
 import SpotifyPlayer from 'react-spotify-web-playback';
+import styled from 'styled-components';
 
 export default function SpotmixPlayer() {
   const t = localStorage.getItem('access-token') || '';
 
   return (
-    <>
-      <p>spotmix</p>
+    <SContainer>
       <SpotifyPlayer
         name="spotmix player"
         token={t}
@@ -16,6 +16,11 @@ export default function SpotmixPlayer() {
           console.log('cb called');
         }}
       />
-    </>
+    </SContainer>
   );
 }
+
+const SContainer = styled.div`
+  display: flex;
+  margin-top: auto;
+`;

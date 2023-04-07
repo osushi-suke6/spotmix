@@ -4,6 +4,8 @@ body {
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: black;
+  color: white;
 }
 
 code {
@@ -12,13 +14,13 @@ code {
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   .main {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(255, 255, 255, 0);
     -webkit-background-clip: text;
     transition: background-color .4s;
   }
 
   .main:hover {
-    background-color: rgba(0, 0, 0, 0.18);
+    background-color: rgba(255, 255, 255, 0.4);
   }
 
   .main::-webkit-scrollbar {
