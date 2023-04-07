@@ -1,11 +1,13 @@
 export default interface ISearchedTracks {
-  href: string;
-  limit: number;
-  next: string | null;
-  offset: number;
-  previous: string | null;
-  total: number;
-  items: ITrack[];
+  tracks: {
+    href: string;
+    limit: number;
+    next: string | null;
+    offset: number;
+    previous: string | null;
+    total: number;
+    items: ITrack[];
+  };
 }
 
 interface ITrack {
