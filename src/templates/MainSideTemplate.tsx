@@ -14,7 +14,7 @@ export default function MainSideBottomTemplate(props: IProps) {
     <>
       {props.header && <SHeader>{props.header}</SHeader>}
       <Flex>
-        <SMain>{props.main}</SMain>
+        <SMain className="main">{props.main}</SMain>
         {props.sidebar && <SAside>{props.sidebar}</SAside>}
       </Flex>
       <SBottom>
@@ -33,6 +33,7 @@ const Flex = styled.div`
 
 const SMain = styled.main`
   width: 80%;
+  overflow-y: scroll;
 `;
 
 const SAside = styled.aside`
