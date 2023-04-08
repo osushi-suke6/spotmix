@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 
-import SearchInput from '../../atoms/SearchInput';
+import Card from '../../atoms/Card';
 import useSpotifySearch from '../../hooks/useSpotifySearch';
-import Card from '../../molecules/Card';
+import SearchBar from '../../molecules/SearchBar';
 
 export default function SearchForm() {
   const { result, search } = useSpotifySearch();
   const token = localStorage.getItem('access-token') ?? '';
-  const query = { q: 'beatles' };
 
   const src = 'https://i.scdn.co/image/ab67616d00004851ed801e58a9ababdea6ac7ce4';
 
@@ -16,7 +15,7 @@ export default function SearchForm() {
     <SForm>
       <SSearchContainer>
         <SSearch>
-          <SearchInput></SearchInput>
+          <SearchBar onEnter={(t) => search({ q: t }, token)} />
         </SSearch>
       </SSearchContainer>
       <SResults className="search-result">

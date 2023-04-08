@@ -1,20 +1,30 @@
+import { forwardRef } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import styled from 'styled-components';
 
 interface IProps {
   placeholder?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-export default function SearchInput(props: IProps) {
+const SearchInput = forwardRef<HTMLInputElement, IProps>(function SearchInput(
+  props,
+  ref,
+) {
   return (
     <>
       <SBox>
         <SFaSearch />
-        <SInput type="text" placeholder={props.placeholder} />
+        <SInput
+          type="text"
+          placeholder={props.placeholder}
+          onChange={props.onChange}
+          ref={ref}
+        />
       </SBox>
     </>
   );
-}
+});
 
 const SBox = styled.div`
   display: flex;
@@ -38,3 +48,5 @@ const SFaSearch = styled(FaSearch)`
   font-size: 1rem;
   align-items: center;
 `;
+
+export default SearchInput;
