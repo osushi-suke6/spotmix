@@ -19,4 +19,11 @@ interface ITrack {
 
 interface IAlbum {
   name: string;
+  images: IAlbumImage[];
+}
+
+interface IAlbumImage {
+  height: number;
+  width: number;
+  url: string;
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 
 import SearchInput from '../atoms/SearchInput';
 import useEnterKey from '../hooks/useEnterKey';
@@ -10,7 +10,8 @@ interface IProps {
 // TODO
 // appropriate error handling on API ERROR: for instance 401
 
-export default function SearchBar(props: IProps) {
+const SearchBar = memo(function SearchBar(props: IProps) {
+  console.log('SearchBar Rendered');
   const [query, setQuery] = useState('');
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -26,4 +27,6 @@ export default function SearchBar(props: IProps) {
       <SearchInput onChange={handleChange} ref={ref} />
     </>
   );
-}
+});
+
+export default SearchBar;

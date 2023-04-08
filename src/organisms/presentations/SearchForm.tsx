@@ -5,6 +5,8 @@ import useSpotifySearch from '../../hooks/useSpotifySearch';
 import SearchBar from '../../molecules/SearchBar';
 
 export default function SearchForm() {
+  console.log('SearchForm Rendered');
+
   const { result, search } = useSpotifySearch();
   const token = localStorage.getItem('access-token') ?? '';
 
@@ -19,16 +21,12 @@ export default function SearchForm() {
         </SSearch>
       </SSearchContainer>
       <SResults className="search-result">
-        <Card imageSrc={src} title="strawberry" description="beatles" />
-        <Card imageSrc={src} title="stgeijgieberry" description="beatles" />
-        <Card imageSrc={src} title="stgeijgieberry" description="beatles" />
-        <Card imageSrc={src} title="stgeijgieberry" description="beatles" />
-        <Card imageSrc={src} title="stgeijgieberry" description="beatles" />
-        <Card imageSrc={src} title="stgeijgieberry" description="beatles" />
-        <Card imageSrc={src} title="stgeijgieberry" description="beatles" />
-        <Card imageSrc={src} title="stgeijgieberry" description="beatles" />
-        <Card imageSrc={src} title="stgeijgieberry" description="beatles" />
-        <Card imageSrc={src} title="stgeijgieberry" description="beatles" />
+        {result?.tracks.items.map((t, i) => {
+          const src = t.album.images[2].url;
+          const title = t.name;
+          const description = t.name;
+          return <Card key={i} imageSrc={src} title={title} description={description} />;
+        })}
       </SResults>
     </SForm>
   );
