@@ -1,28 +1,34 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-export default function useEnterKey(callback: () => void) {
+const useEnterKey = function useEnterKey(callback: () => void) {
+  console.log('useEnterKey');
+
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // TODO: Refactor
   // prevent rerender after isFocused state changed
 
-  useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
       if (isFocused && event.key === 'Enter') {
         callback();
       }
-    }
+    },
+    [callback],
+  );
 
+  const handleFocus = useCallback(() => {
+    //setIsFocused(true);
+  }, []);
+
+  const handleBlur = useCallback(() => {
+    //setIsFocused(false);
+  }, []);
+
+  useEffect(() => {
+    console.log('useEnterKey, useEffect');
     addEventListener('keydown', handleKeyDown);
-
-    function handleFocus() {
-      setIsFocused(true);
-    }
-
-    function handleBlur() {
-      setIsFocused(false);
-    }
 
     const input = inputRef.current;
     input?.addEventListener('focus', handleFocus);
@@ -33,7 +39,9 @@ export default function useEnterKey(callback: () => void) {
       input?.removeEventListener('focus', handleFocus);
       input?.removeEventListener('bluer', handleBlur);
     };
-  }, [callback, inputRef.current]);
+  }, [handleKeyDown, inputRef.current]);
 
   return inputRef;
-}
+};
+
+export default useEnterKey;

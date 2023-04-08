@@ -1,66 +1,35 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-import useConcatResults from '../../hooks/useConcatResults';
-import useSpotifySearch from '../../hooks/useSpotifySearch';
 import SearchBar from '../../molecules/SearchBar';
-import SearchResults from './SearchResults';
 
-export default function SearchForm() {
+const SearchForm = memo(function searchForm() {
   console.log('SearchForm Rendered');
 
-  const { result, fetchNew, fetchNext } = useSpotifySearch();
-  const { results, concatResult, init } = useConcatResults();
-
-  const handleSearch = useCallback((t: string) => {
-    const token = localStorage.getItem('access-token') ?? '';
-    init();
-    fetchNew(t, token);
-  }, []);
-
-  const handleLoad = useCallback(() => {
-    const token = localStorage.getItem('access-token') ?? '';
-    fetchNext(token);
-  }, []);
-
-  useEffect(() => {
-    if (result) concatResult(result);
-  }, [result]);
-
-  useEffect(() => {
-    console.log(results);
-  }, [results]);
-
-  const resultRef = useRef<HTMLDivElement>(null);
-  resultRef.current?.addEventListener('scroll', (e) => {
-    if (!resultRef.current) return;
-    const { scrollTop, scrollHeight, clientHeight } = resultRef.current;
-
-    console.log(`${scrollTop + clientHeight}/${scrollHeight}`);
-  });
+  const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <SForm>
-      <SSearchContainer>
-        <SSearch>
-          <SearchBar onEnter={handleSearch} />
-        </SSearch>
-      </SSearchContainer>
-      <SResults ref={resultRef} className="search-result">
-        {!result ? null : <SearchResults resultChunks={results} />}
-      </SResults>
-    </SForm>
+    <Form>
+      <SearchArea className="search-bar">
+        <FixedBox>
+          <SearchBar ref={inputRef} />
+        </FixedBox>
+      </SearchArea>
+      <ResultArea className="search-result"></ResultArea>
+    </Form>
   );
-}
+});
+
+export default SearchForm;
 
 const searchHeight = '50px';
 
-const SForm = styled.div`
+const Form = styled.div`
   height: 100%;
   position: relative;
 `;
 
-const SSearch = styled.div`
+const FixedBox = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -68,12 +37,12 @@ const SSearch = styled.div`
   position: absolute;
 `;
 
-const SSearchContainer = styled.div`
+const SearchArea = styled.div`
   width: 100%;
   height: ${searchHeight};
 `;
 
-const SResults = styled.div`
+const ResultArea = styled.div`
   width: 100%;
   height: calc(100% - ${searchHeight});
   overflow-y: scroll;

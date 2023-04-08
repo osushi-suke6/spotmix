@@ -5,43 +5,40 @@ import styled from 'styled-components';
 interface IProps {
   placeholder?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 }
 
-const searchInput = forwardRef<HTMLInputElement, IProps>(function searchInput(
-  props,
-  ref,
-) {
+const searchBox = forwardRef<HTMLInputElement, IProps>(function searchBox(props, ref) {
   return (
-    <>
-      <SBox>
-        <SFaSearch />
-        <SInput
-          type="text"
-          placeholder={props.placeholder}
-          onChange={props.onChange}
-          ref={ref}
-        />
-      </SBox>
-    </>
+    <Box>
+      <SearchIcon />
+      <Input
+        type="text"
+        placeholder={props.placeholder}
+        onChange={props.onChange}
+        onKeyDown={props.onKeyDown}
+        ref={ref}
+      />
+    </Box>
   );
 });
 
-const SearchInput = memo(searchInput);
+const SearchBox = memo(searchBox);
 
-const SBox = styled.div`
+const Box = styled.div`
   display: flex;
   width: 300px;
   position: relative;
 `;
 
-const SInput = styled.input`
+const Input = styled.input`
   flex-grow: 1;
   padding: 0.7rem 0.8rem 0.7rem 2.2rem;
   border: 1px solid #333;
   border-radius: 1.5rem;
 `;
 
-const SFaSearch = styled(FaSearch)`
+const SearchIcon = styled(FaSearch)`
   position: absolute;
   top: -0.05rem;
   left: 0;
@@ -51,4 +48,4 @@ const SFaSearch = styled(FaSearch)`
   align-items: center;
 `;
 
-export default SearchInput;
+export default SearchBox;

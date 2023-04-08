@@ -1,28 +1,32 @@
-import { memo, useCallback } from 'react';
+import { KeyboardEvent, memo, useCallback } from 'react';
 
-import SearchInput from '../atoms/SearchInput';
-import useEnterKey from '../hooks/useEnterKey';
+import SearchInput from '../atoms/SearchBox';
 
 interface IProps {
-  onEnter: (text: string) => void;
+  onEnter?: (text: string) => void;
+  ref: React.ForwardedRef<HTMLInputElement>;
 }
 
 // TODO
 // appropriate error handling on API ERROR: for instance 401
 
 const SearchBar = memo(function SearchBar(props: IProps) {
+  console.log('SearchBar');
+
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
-    console.log(e?.target.value);
+    //console.log(e?.target.value);
   }, []);
 
-  const ref = useEnterKey(() => {
-    const query = ref.current?.value ?? '';
-    if (query !== '') props.onEnter(query);
-  });
+  const handleKeyDown = useCallback((e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== 'Enter') return;
+
+    console.log('pressed');
+    //props.onEnter(e.currentTarget.value);
+  }, []);
 
   return (
     <>
-      <SearchInput onChange={handleChange} ref={ref} />
+      <SearchInput onChange={handleChange} onKeyDown={handleKeyDown} />
     </>
   );
 });
