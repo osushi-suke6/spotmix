@@ -1,20 +1,35 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 
-import Card from '../../atoms/Card';
+import useConcatResults from '../../hooks/useConcatResults';
 import useSpotifySearch from '../../hooks/useSpotifySearch';
 import SearchBar from '../../molecules/SearchBar';
+import SearchResults from './SearchResults';
 
 export default function SearchForm() {
   console.log('SearchForm Rendered');
 
-  const { result, search } = useSpotifySearch();
+  const { result, fetchNew, fetchNext } = useSpotifySearch();
+  const { results, concatResult, init } = useConcatResults();
 
   const handleSearch = useCallback((t: string) => {
     const token = localStorage.getItem('access-token') ?? '';
-    search({ q: t }, token);
+    init();
+    fetchNew(t, token);
   }, []);
 
+  const handleLoad = useCallback(() => {
+    const token = localStorage.getItem('access-token') ?? '';
+    fetchNext(token);
+  }, []);
+
+  useEffect(() => {
+    if (result) concatResult(result);
+  }, [result]);
+
+  useEffect(() => {
+    console.log(results);
+  }, [results]);
   return (
     <SForm>
       <SSearchContainer>
@@ -23,12 +38,7 @@ export default function SearchForm() {
         </SSearch>
       </SSearchContainer>
       <SResults className="search-result">
-        {result?.tracks.items.map((t, i) => {
-          const src = t.album.images[2].url;
-          const title = t.name;
-          const description = t.name;
-          return <Card key={i} imageSrc={src} title={title} description={description} />;
-        })}
+        {!result ? null : <SearchResults resultChunks={results} />}
       </SResults>
     </SForm>
   );
