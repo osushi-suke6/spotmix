@@ -57,7 +57,7 @@ const SSearchContainer = styled.div`
 
 const SResults = styled.div`
   width: 100%;
-  height: 100%;
+  height: calc(100% - ${searchHeight});
   background: gray;
   overflow-y: scroll;
 `;
