@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, memo } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import styled from 'styled-components';
 
@@ -7,7 +7,7 @@ interface IProps {
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const SearchInput = forwardRef<HTMLInputElement, IProps>(function SearchInput(
+const searchInput = forwardRef<HTMLInputElement, IProps>(function searchInput(
   props,
   ref,
 ) {
@@ -25,6 +25,8 @@ const SearchInput = forwardRef<HTMLInputElement, IProps>(function SearchInput(
     </>
   );
 });
+
+const SearchInput = memo(searchInput);
 
 const SBox = styled.div`
   display: flex;

@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import styled from 'styled-components';
 
 import Card from '../../atoms/Card';
@@ -10,14 +11,16 @@ export default function SearchForm() {
   const { result, search } = useSpotifySearch();
   const token = localStorage.getItem('access-token') ?? '';
 
-  const src = 'https://i.scdn.co/image/ab67616d00004851ed801e58a9ababdea6ac7ce4';
+  const handleSearch = useCallback((t: string) => {
+    search({ q: t }, token);
+  }, []);
 
   console.log(result);
   return (
     <SForm>
       <SSearchContainer>
         <SSearch>
-          <SearchBar onEnter={(t) => search({ q: t }, token)} />
+          <SearchBar onEnter={handleSearch} />
         </SSearch>
       </SSearchContainer>
       <SResults className="search-result">
