@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import SearchInput from '../../atoms/SearchInput';
 import useSpotifySearch from '../../hooks/useSpotifySearch';
 import Card from '../../molecules/Card';
 
@@ -12,15 +13,13 @@ export default function SearchForm() {
 
   console.log(result);
   return (
-    <>
-      <button
-        onClick={() => {
-          search(query, token);
-        }}
-      >
-        search
-      </button>
-      <SContainer>
+    <SForm>
+      <SSearchContainer>
+        <SSearch>
+          <SearchInput></SearchInput>
+        </SSearch>
+      </SSearchContainer>
+      <SResults className="search-result">
         <Card imageSrc={src} title="strawberry" description="beatles" />
         <Card imageSrc={src} title="stgeijgieberry" description="beatles" />
         <Card imageSrc={src} title="stgeijgieberry" description="beatles" />
@@ -31,13 +30,34 @@ export default function SearchForm() {
         <Card imageSrc={src} title="stgeijgieberry" description="beatles" />
         <Card imageSrc={src} title="stgeijgieberry" description="beatles" />
         <Card imageSrc={src} title="stgeijgieberry" description="beatles" />
-      </SContainer>
-    </>
+      </SResults>
+    </SForm>
   );
 }
 
-const SContainer = styled.div`
+const searchHeight = '50px';
+
+const SForm = styled.div`
+  height: 100%;
+  position: relative;
+`;
+
+const SSearch = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: ${searchHeight};
+  position: absolute;
+`;
+
+const SSearchContainer = styled.div`
+  width: 100%;
+  height: ${searchHeight};
+`;
+
+const SResults = styled.div`
   width: 100%;
   height: 100%;
   background: gray;
+  overflow-y: scroll;
 `;

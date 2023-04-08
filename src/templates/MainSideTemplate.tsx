@@ -31,7 +31,6 @@ const bottomHeight = '180px';
 const SWrapper = styled.div`
   min-height: 100vh;
   max-height: 100vh;
-  //padding-top: ${headerHeight};
   padding-bottom: ${bottomHeight};
   box-sizing: border-box;
 `;
@@ -46,13 +45,13 @@ const SMiddle = styled.div`
 `;
 
 const SMain = styled.main`
-  width: 80%;
+  width: 70%;
   height: 100%;
-  overflow-y: scroll;
+  //overflow-y: scroll;
 `;
 
 const SAside = styled.aside`
-  width: 20%;
+  width: 30%;
   height: 100%;
   //overflow-y: scroll;
 `;

@@ -24,10 +24,10 @@ const SCard = styled.div`
   display: flex;
   margin: 0;
   height: 70px;
-  padding: 6px 6px 0 6px;
+  padding: 3px 6px 3px 6px;
   width: 100%;
   box-sizing: border-box;
-  background: blue;
+  background-color: aqua;
 `;
 
 const SImageContainer = styled.div`
