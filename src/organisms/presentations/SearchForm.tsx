@@ -9,9 +9,9 @@ export default function SearchForm() {
   console.log('SearchForm Rendered');
 
   const { result, search } = useSpotifySearch();
-  const token = localStorage.getItem('access-token') ?? '';
 
   const handleSearch = useCallback((t: string) => {
+    const token = localStorage.getItem('access-token') ?? '';
     search({ q: t }, token);
   }, []);
 
