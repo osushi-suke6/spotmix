@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import useConcatResults from '../../hooks/useConcatResults';
@@ -30,6 +30,15 @@ export default function SearchForm() {
   useEffect(() => {
     console.log(results);
   }, [results]);
+
+  const resultRef = useRef<HTMLDivElement>(null);
+  resultRef.current?.addEventListener('scroll', (e) => {
+    if (!resultRef.current) return;
+    const { scrollTop, scrollHeight, clientHeight } = resultRef.current;
+
+    console.log(`${scrollTop + clientHeight}/${scrollHeight}`);
+  });
+
   return (
     <SForm>
       <SSearchContainer>
@@ -37,7 +46,7 @@ export default function SearchForm() {
           <SearchBar onEnter={handleSearch} />
         </SSearch>
       </SSearchContainer>
-      <SResults className="search-result">
+      <SResults ref={resultRef} className="search-result">
         {!result ? null : <SearchResults resultChunks={results} />}
       </SResults>
     </SForm>
