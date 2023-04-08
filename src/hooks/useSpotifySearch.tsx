@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import ISearchedTracks from '../interfaces/ISearchedTracks';
 
-interface IQuery {
+interface ISearchParams {
   q: string;
   limit?: string;
   offset?: string;
@@ -11,7 +11,7 @@ interface IQuery {
 export default function useSpotifySearch() {
   const [result, setResult] = useState<ISearchedTracks | null>(null);
 
-  const search = async (query: IQuery, token: string) => {
+  const search = async (query: ISearchParams, token: string) => {
     const url = 'https://api.spotify.com/v1/search';
     const q = { ...query, type: 'track' };
     const params = new URLSearchParams(q);
