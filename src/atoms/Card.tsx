@@ -23,22 +23,27 @@ export default function Card(props: IProps) {
 const SCard = styled.div`
   display: flex;
   margin: 0;
-  height: 70px;
+  height: 80px;
   padding: 3px 6px 3px 6px;
   width: 100%;
   box-sizing: border-box;
-  background-color: aqua;
+  background-color: #121212;
+  border-radius: 8px;
+  &:hover {
+    background-color: #535353;
+  }
 `;
 
 const SImageContainer = styled.div`
   width: 64px;
-  height: 64px;
+  height: 74px;
+  display: flex;
+  align-items: center;
 `;
 
 const SContainer = styled.div`
   width: 100%;
   flex-direction: column;
-  background: red;
 `;
 
 const STitle = styled.div`
@@ -57,5 +62,5 @@ const SDesc = styled.div`
   height: 50%;
   display: flex;
   align-items: center;
-  color: gray;
+  color: #b3b3b3;
 `;

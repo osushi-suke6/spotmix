@@ -64,6 +64,8 @@ const SBottomContainer = styled.div`
 
   display: flex;
   flex-direction: column;
+  background-color: #212121;
+  border-top: solid 1px #535353;
 `;
 
 const SBottom = styled.div`
@@ -71,9 +73,11 @@ const SBottom = styled.div`
 `;
 
 const SFooter = styled.div`
-  height: 30px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: right;
   padding: 0 8px;
+  background-color: #1db954;
+  color: black;
 `;
