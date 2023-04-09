@@ -9,7 +9,7 @@ export default function SpotmixPlayer() {
       <SpotifyPlayer
         name="spotmix player"
         token={t}
-        uris={['spotify:artist:6HQYnRM4OzToCYPpVBInuU']}
+        uris={[]}
         callback={(state) => console.log(state)}
         getOAuthToken={async (cb) => {
           cb(t);

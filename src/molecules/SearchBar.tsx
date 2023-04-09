@@ -11,8 +11,6 @@ interface IProps {
 // appropriate error handling on API ERROR: for instance 401
 
 const SearchBar = memo(function SearchBar(props: IProps) {
-  console.log('SearchBar');
-
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
     //console.log(e?.target.value);
   }, []);
@@ -22,7 +20,6 @@ const SearchBar = memo(function SearchBar(props: IProps) {
     if (e.key !== 'Enter') return;
     if (!e.currentTarget.value) return;
 
-    console.log('pressed');
     props.onEnter(e.currentTarget?.value);
   }, []);
 

@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import styled from 'styled-components';
 
 import Card from '../../atoms/Card';
 
@@ -9,9 +10,21 @@ interface IProps {
 }
 
 const Track = memo(function track(props: IProps) {
+  const play = () => {
+    console.log(`play ${props.track}`);
+  };
+
   return (
-    <Card title={props.track} description={props.artist} imageSrc={props.albumImgSrc} />
+    <TrackContainer onClick={play}>
+      <Card title={props.track} description={props.artist} imageSrc={props.albumImgSrc} />
+    </TrackContainer>
   );
 });
 
 export default Track;
+
+const TrackContainer = styled.div`
+  &:hover {
+    cursor: pointer;
+  }
+`;
