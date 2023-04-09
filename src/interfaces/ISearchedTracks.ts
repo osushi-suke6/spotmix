@@ -12,6 +12,7 @@ export default interface ISearchedTracks {
 
 interface ITrack {
   album: IAlbum;
+  artists: IArtist[];
   name: string;
   available_markets: string[];
   is_playable: boolean;
@@ -26,4 +27,8 @@ interface IAlbumImage {
   height: number;
   width: number;
   url: string;
+}
+
+interface IArtist {
+  name: string;
 }

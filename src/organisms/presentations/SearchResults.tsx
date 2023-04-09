@@ -1,5 +1,5 @@
 import ISearchedTracks from '../../interfaces/ISearchedTracks';
-import SearchResult from './SearchResult';
+import SearchResultContainer from '../containers/SearchResultContainer';
 
 interface IProps {
   results: ISearchedTracks[];
@@ -9,7 +9,7 @@ const SearchResults = (props: IProps) => {
   return (
     <>
       {props.results.map((result, i) => {
-        return <SearchResult key={i} result={result} />;
+        return <SearchResultContainer key={i} result={result} />;
       })}
     </>
   );
