@@ -1,15 +1,15 @@
 import ISearchedTracks from '../../interfaces/ISearchedTracks';
-import SearchResultChunk from './SearchResultChunk';
+import SearchResult from './SearchResult';
 
 interface IProps {
-  resultChunks: ISearchedTracks[];
+  results: ISearchedTracks[];
 }
 
 const SearchResults = (props: IProps) => {
   return (
     <>
-      {props.resultChunks.map((chunk, i) => {
-        return <SearchResultChunk key={i} result={chunk} />;
+      {props.results.map((result, i) => {
+        return <SearchResult key={i} result={result} />;
       })}
     </>
   );

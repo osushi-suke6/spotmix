@@ -18,10 +18,12 @@ const SearchBar = memo(function SearchBar(props: IProps) {
   }, []);
 
   const handleKeyDown = useCallback((e: KeyboardEvent<HTMLInputElement>) => {
+    if (!props.onEnter) return;
     if (e.key !== 'Enter') return;
+    if (!e.currentTarget.value) return;
 
     console.log('pressed');
-    //props.onEnter(e.currentTarget.value);
+    props.onEnter(e.currentTarget?.value);
   }, []);
 
   return (

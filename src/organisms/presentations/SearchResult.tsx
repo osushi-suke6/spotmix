@@ -7,7 +7,7 @@ interface IProps {
   result: ISearchedTracks;
 }
 
-const SearchResultChunk = memo(function searchResultchunk(props: IProps) {
+const SearchResult = memo(function searchResult(props: IProps) {
   return (
     <>
       {props.result.tracks.items.map((t, i) => {
@@ -20,4 +20,4 @@ const SearchResultChunk = memo(function searchResultchunk(props: IProps) {
   );
 });
 
-export default SearchResultChunk;
+export default SearchResult;

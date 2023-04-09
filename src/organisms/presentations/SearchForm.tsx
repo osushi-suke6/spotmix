@@ -1,21 +1,30 @@
-import { memo, useCallback, useEffect, useRef } from 'react';
+import { memo, useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import SearchBar from '../../molecules/SearchBar';
+import SearchResultsContainer from '../containers/SearchResultsContainer';
 
 const SearchForm = memo(function searchForm() {
-  console.log('SearchForm Rendered');
+  console.log('SearchForm');
+
+  const [query, setQuery] = useState('');
 
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleEnter = useCallback((t: string) => {
+    setQuery(t);
+  }, []);
 
   return (
     <Form>
       <SearchArea className="search-bar">
         <FixedBox>
-          <SearchBar ref={inputRef} />
+          <SearchBar ref={inputRef} onEnter={handleEnter} />
         </FixedBox>
       </SearchArea>
-      <ResultArea className="search-result"></ResultArea>
+      <ResultArea className="search-result">
+        <SearchResultsContainer query={query} />
+      </ResultArea>
     </Form>
   );
 });
