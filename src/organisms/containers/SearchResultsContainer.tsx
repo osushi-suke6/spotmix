@@ -1,5 +1,7 @@
 import { memo, useCallback, useEffect, useState } from 'react';
+import styled from 'styled-components';
 
+import useScrollBottom from '../../hooks/useScrollBottom';
 import useSpotifySearch from '../../hooks/useSpotifySearch';
 import ISearchedTracks from '../../interfaces/ISearchedTracks';
 import SearchResults from '../presentations/SearchResults';
@@ -39,15 +41,20 @@ const searchResultsContainer = (props: IProps) => {
   useEffect(initPages, [initPages]);
   useEffect(updateResults, [result]);
 
+  const ref = useScrollBottom(fetchNext);
+
   return (
-    <>
-      <p>{result?.tracks.items[0].name}</p>
+    <ResultsContainer ref={ref} className="search-results">
       <SearchResults results={results} />
-      {results.length > 0 ? <button onClick={fetchNext}>page</button> : null}
-    </>
+    </ResultsContainer>
   );
 };
 
 const SearchResultsContainer = memo(searchResultsContainer);
 
 export default SearchResultsContainer;
+
+const ResultsContainer = styled.div`
+  height: 100%;
+  overflow-y: scroll;
+`;

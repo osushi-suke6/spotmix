@@ -13,27 +13,27 @@ code {
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-  .search-result {
+  .search-results {
     background-color: rgba(255, 255, 255, 0);
     -webkit-background-clip: text;
     background-clip: text;
     transition: background-color .4s;
   }
 
-  .search-result:hover {
+  .search-results:hover {
     background-color: rgba(255, 255, 255, 0.4);
   }
 
-  .search-result::-webkit-scrollbar {
+  .search-results::-webkit-scrollbar {
     width: 12px;
     height: 8px;
   }
 
-  .search-result::-webkit-scrollbar-track {
+  .search-results::-webkit-scrollbar-track {
     display: none;
   }
 
-  .search-result::-webkit-scrollbar-thumb {
+  .search-results::-webkit-scrollbar-thumb {
     background-color: inherit;
   }
 }

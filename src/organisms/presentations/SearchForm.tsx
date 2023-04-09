@@ -17,12 +17,12 @@ const SearchForm = memo(function searchForm() {
 
   return (
     <Form>
-      <SearchArea className="search-bar">
+      <SearchArea className="search-area">
         <FixedBox>
           <SearchBar ref={inputRef} onEnter={handleEnter} />
         </FixedBox>
       </SearchArea>
-      <ResultArea className="search-result">
+      <ResultArea className="result-area">
         <SearchResultsContainer query={query} />
       </ResultArea>
     </Form>
@@ -54,5 +54,4 @@ const SearchArea = styled.div`
 const ResultArea = styled.div`
   width: 100%;
   height: calc(100% - ${searchHeight});
-  overflow-y: scroll;
 `;
