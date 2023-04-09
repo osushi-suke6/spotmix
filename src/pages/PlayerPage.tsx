@@ -1,5 +1,5 @@
 import SearchForm from '../organisms/presentations/SearchForm';
-import SpotmixPlayer from '../organisms/SpotmixPlayer';
+import SpotmixPlayer from '../organisms/presentations/SpotmixPlayer';
 import MainSideTemplate from '../templates/MainSideTemplate';
 
 export default function PlayerPage() {
