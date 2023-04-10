@@ -47,6 +47,8 @@ const useSpotifyToken = (refreshToken: string) => {
 
     localStorage.setItem(REFRESH_KEY, json.refresh_token);
     setToken(json.access_token);
+
+    return json.access_token;
   }, []);
 
   return [token, refresh] as const;
