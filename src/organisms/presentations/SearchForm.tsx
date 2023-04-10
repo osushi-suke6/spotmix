@@ -9,8 +9,6 @@ const SearchForm = memo(function searchForm() {
 
   const [query, setQuery] = useState('');
 
-  const inputRef = useRef<HTMLInputElement>(null);
-
   const handleEnter = useCallback((t: string) => {
     setQuery(t);
   }, []);
@@ -19,7 +17,7 @@ const SearchForm = memo(function searchForm() {
     <Form>
       <SearchArea className="search-area">
         <FixedBox>
-          <SearchBar ref={inputRef} onEnter={handleEnter} />
+          <SearchBar onEnter={handleEnter} />
         </FixedBox>
       </SearchArea>
       <ResultArea className="result-area">

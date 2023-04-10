@@ -1,10 +1,9 @@
 import { KeyboardEvent, memo, useCallback } from 'react';
 
-import SearchInput from '../atoms/SearchBox';
+import SearchBox from '../atoms/SearchBox';
 
 interface IProps {
   onEnter?: (text: string) => void;
-  ref: React.ForwardedRef<HTMLInputElement>;
 }
 
 // TODO
@@ -25,7 +24,7 @@ const SearchBar = memo(function SearchBar(props: IProps) {
 
   return (
     <>
-      <SearchInput onChange={handleChange} onKeyDown={handleKeyDown} />
+      <SearchBox onChange={handleChange} onKeyDown={handleKeyDown} />
     </>
   );
 });

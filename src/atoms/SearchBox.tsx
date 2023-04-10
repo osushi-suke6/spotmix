@@ -1,4 +1,4 @@
-import { forwardRef, memo } from 'react';
+import { memo } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import styled from 'styled-components';
 
@@ -8,7 +8,7 @@ interface IProps {
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 }
 
-const searchBox = forwardRef<HTMLInputElement, IProps>(function searchBox(props, ref) {
+const searchBox = (props: IProps) => {
   return (
     <Box>
       <SearchIcon />
@@ -17,11 +17,10 @@ const searchBox = forwardRef<HTMLInputElement, IProps>(function searchBox(props,
         placeholder={props.placeholder}
         onChange={props.onChange}
         onKeyDown={props.onKeyDown}
-        ref={ref}
       />
     </Box>
   );
-});
+};
 
 const SearchBox = memo(searchBox);
 
