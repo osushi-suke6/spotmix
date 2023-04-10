@@ -1,14 +1,10 @@
-import { usePlaybackState, useWebPlaybackSDKReady } from 'react-spotify-web-playback-sdk';
+import { usePlaybackState } from 'react-spotify-web-playback-sdk';
 
 const PlayingTrack = () => {
   console.log('PlayingTrack');
-  const playbackState = usePlaybackState(true, 500);
-
-  const isReady = useWebPlaybackSDKReady();
-  console.log(isReady);
+  const playbackState = usePlaybackState();
 
   if (playbackState === null) return null;
-  console.log('PlayingTrack ready');
   return <p>Current song: {playbackState.track_window.current_track.name}</p>;
 };
 

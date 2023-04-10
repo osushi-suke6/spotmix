@@ -5,7 +5,7 @@ import PlayingTrack from '../../molecules/PlayingTrack';
 import TogglePlay from '../../molecules/TogglePlay';
 
 const SpotmixPlayer = () => {
-  const getOAuthToken = useCallback((callback: any) => {
+  const getOAuthToken = useCallback((callback: (token: string) => void) => {
     const token = localStorage.getItem('access-token') ?? '';
     console.log('aaa');
     console.log(token);

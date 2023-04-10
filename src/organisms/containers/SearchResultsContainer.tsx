@@ -1,8 +1,10 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { REFRESH_KEY } from '../../consts';
 import useScrollBottom from '../../hooks/useScrollBottom';
 import useSpotifySearch from '../../hooks/useSpotifySearch';
+import useSpotifyToken from '../../hooks/useSpotifyToken';
 import ISearchedTracks from '../../interfaces/ISearchedTracks';
 import SearchResults from '../presentations/SearchResults';
 
@@ -14,13 +16,14 @@ const searchResultsContainer = (props: IProps) => {
   const [results, setResults] = useState<ISearchedTracks[]>([]);
   const [result, search] = useSpotifySearch();
 
+  const [token, refresh] = useSpotifyToken(localStorage.getItem(REFRESH_KEY) ?? '');
+
   const initPages = useCallback(() => {
     if (props.query === '') return;
 
     setResults([]);
-    const token = localStorage.getItem('access-token') ?? '';
     search({ q: props.query }, token);
-  }, [props.query]);
+  }, [props.query, token]);
 
   const updateResults = () => {
     if (!result) return;
