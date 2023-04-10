@@ -13,7 +13,8 @@ interface IResult {
 const URL = 'https://accounts.spotify.com/api/token';
 
 const useSpotifyToken = (refreshToken: string) => {
-  const [token, setToken] = useState('');
+  const t = localStorage.getItem(ACCESS_KEY) ?? '';
+  const [token, setToken] = useState(t);
 
   useEffect(() => {
     localStorage.setItem(ACCESS_KEY, token);
