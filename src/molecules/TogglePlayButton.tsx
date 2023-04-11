@@ -1,23 +1,20 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback } from 'react';
 import styled from 'styled-components';
 
 import PauseButton from '../atoms/PauseButton';
 import PlayButton from '../atoms/PlayButton';
 
 interface IProps {
-  isPlaying?: boolean;
+  isPaused: boolean;
   onClick: () => void;
 }
 
 const togglePlayButton = (props: IProps) => {
-  const [isPlaying, setIsPlaying] = useState(props.isPlaying ?? false);
-
   const handleClick = useCallback(() => {
     props.onClick();
-    setIsPlaying(!isPlaying);
-  }, [props.onClick, isPlaying]);
+  }, [props.onClick]);
 
-  const button = isPlaying ? <PauseButton /> : <PlayButton />;
+  const button = props.isPaused ? <PlayButton /> : <PauseButton />;
 
   return <Button onClick={handleClick}>{button}</Button>;
 };

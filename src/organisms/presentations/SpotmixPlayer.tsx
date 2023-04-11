@@ -3,12 +3,13 @@ import { WebPlaybackSDK } from 'react-spotify-web-playback-sdk';
 
 import { REFRESH_KEY } from '../../consts';
 import useSpotifyToken from '../../hooks/useSpotifyToken';
-import PlayingTrack from '../../molecules/PlayingTrack';
-import TogglePlay from '../../molecules/TogglePlay';
+import PlayerContainer from '../containers/PlayerContainer';
 
 const SpotmixPlayer = () => {
+  console.log('spotmix player');
+
   const refreshToken = localStorage.getItem(REFRESH_KEY) ?? '';
-  const [, refresh] = useSpotifyToken(refreshToken);
+  const [token, refresh] = useSpotifyToken(refreshToken);
 
   const getOAuthToken = useCallback(async (callback: (token: string) => void) => {
     const t = await refresh();
@@ -24,8 +25,7 @@ const SpotmixPlayer = () => {
         getOAuthToken={getOAuthToken}
         initialVolume={0.5}
       >
-        <TogglePlay />
-        <PlayingTrack />
+        <PlayerContainer token={token} />
       </WebPlaybackSDK>
     </>
   );
