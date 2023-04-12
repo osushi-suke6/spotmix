@@ -64,11 +64,11 @@ const AlbumImage = styled.div`
 const TrackInfo = styled.div``;
 
 const Track = styled.div`
-  padding: 6px 6px;
-  font-size: 16px;
+  padding: 10px 6px 2px 6px;
+  font-size: 14px;
 `;
 const Artist = styled.div`
   padding: 2px 6px;
-  font-size: 14px;
+  font-size: 12px;
   color: #b3b3b3;
 `;

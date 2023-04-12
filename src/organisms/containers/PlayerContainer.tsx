@@ -1,9 +1,18 @@
 import { memo, useEffect, useState } from 'react';
-import { useSpotifyPlayer } from 'react-spotify-web-playback-sdk';
+import {
+  usePlaybackState,
+  usePlayerDevice,
+  useSpotifyPlayer,
+} from 'react-spotify-web-playback-sdk';
 
+import useSpotifyPlay from '../../hooks/useSpotifyPlay';
+import useSpotifyQueue from '../../hooks/useSpotifyQueue';
 import Player from '../presentations/Player';
 
-const playerContainer = () => {
+interface IProps {
+  token: string;
+}
+const playerContainer = (props: IProps) => {
   const [isPaused, setIsPaused] = useState(true);
   const [playing, setPlaying] = useState<Spotify.Track | null>(null);
 
@@ -28,13 +37,27 @@ const playerContainer = () => {
     };
   }, [player]);
 
+  const add = useSpotifyQueue();
+  const { transfer } = useSpotifyPlay();
+  const device = usePlayerDevice();
+  const state = usePlaybackState();
+
   if (!player) return null;
+  if (!device) return null;
+
+  const togglePlay = async () => {
+    if (!state) {
+      await transfer(props.token, device?.device_id ?? '');
+    }
+
+    await player.togglePlay();
+    //add('spotify:track:0KwugbvQTTVsfCceBzCOwY', props.token);
+    //player.togglePlay();
+  };
 
   return (
     <Player
-      togglePlay={async () => {
-        player?.togglePlay();
-      }}
+      togglePlay={togglePlay}
       isPaused={isPaused}
       playingTrack={playing?.name ?? ''}
       artist={playing?.artists.map((a) => a.name).join(', ') ?? ''}

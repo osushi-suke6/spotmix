@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 export default function useSpotifyPlay() {
-  const play = useCallback(async (token: string) => {
+  const play = useCallback(async (token: string, deviceId: string, uris: string[]) => {
     const url = 'https://api.spotify.com/v1/me/player/play';
 
     await fetch(url, {
@@ -9,8 +9,27 @@ export default function useSpotifyPlay() {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify({
+        device_id: deviceId,
+        uris,
+      }),
     });
   }, []);
 
-  return play;
+  const transfer = useCallback(async (token: string, deviceId: string) => {
+    const url = 'https://api.spotify.com/v1/me/player/';
+
+    await fetch(url, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        device_ids: [deviceId],
+        play: true,
+      }),
+    });
+  }, []);
+
+  return { play, transfer };
 }
