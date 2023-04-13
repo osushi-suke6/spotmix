@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 export default function useSpotifyPlay() {
-  const play = useCallback(async (token: string, deviceId: string, uris: string[]) => {
+  const play = useCallback(async (token: string, uris: string[], deviceId?: string) => {
     const url = 'https://api.spotify.com/v1/me/player/play';
 
     await fetch(url, {
@@ -10,7 +10,7 @@ export default function useSpotifyPlay() {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        device_id: deviceId,
+        //device_id: deviceId,
         uris,
       }),
     });

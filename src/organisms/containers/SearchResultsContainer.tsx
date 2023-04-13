@@ -7,6 +7,7 @@ import useSpotifySearch from '../../hooks/useSpotifySearch';
 import useSpotifyToken from '../../hooks/useSpotifyToken';
 import ISearchedTracks from '../../interfaces/ISearchedTracks';
 import SearchResults from '../presentations/SearchResults';
+import { useTokenContext } from '../providers/TokenProvider';
 
 interface IProps {
   query: string;
@@ -16,7 +17,12 @@ const searchResultsContainer = (props: IProps) => {
   const [results, setResults] = useState<ISearchedTracks[]>([]);
   const [result, search] = useSpotifySearch();
 
-  const [token, refresh] = useSpotifyToken(localStorage.getItem(REFRESH_KEY) ?? '');
+  //const [token, refresh] = useSpotifyToken(localStorage.getItem(REFRESH_KEY) ?? '');
+
+  const tokenContext = useTokenContext();
+  if (!tokenContext) return null;
+
+  const { token } = tokenContext;
 
   const initPages = useCallback(() => {
     if (props.query === '') return;
@@ -37,7 +43,6 @@ const searchResultsContainer = (props: IProps) => {
       offset: (results.length * 20).toString(),
     };
 
-    const token = localStorage.getItem('access-token') ?? '';
     search(params, token);
   };
 

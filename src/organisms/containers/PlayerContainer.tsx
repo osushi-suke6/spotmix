@@ -37,22 +37,19 @@ const playerContainer = (props: IProps) => {
     };
   }, [player]);
 
-  const add = useSpotifyQueue();
   const { transfer } = useSpotifyPlay();
   const device = usePlayerDevice();
   const state = usePlaybackState();
 
-  if (!player) return null;
-  if (!device) return null;
+  if (!player) return <p>player is not ready</p>;
+  if (!device) return <p>device is not ready</p>;
 
   const togglePlay = async () => {
     if (!state) {
-      await transfer(props.token, device?.device_id ?? '');
+      await transfer(props.token, device.device_id);
     }
 
     await player.togglePlay();
-    //add('spotify:track:0KwugbvQTTVsfCceBzCOwY', props.token);
-    //player.togglePlay();
   };
 
   return (

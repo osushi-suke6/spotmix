@@ -5,12 +5,15 @@ export default function useSpotifyQueue() {
     const url = 'https://api.spotify.com/v1/me/player/queue';
     const params = new URLSearchParams({ uri });
 
-    await fetch(url + '?' + params, {
+    const res = await fetch(url + '?' + params, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+
+    const j = await res.json();
+    console.log(j);
   }, []);
 
   return add;

@@ -12,9 +12,10 @@ interface IResult {
 
 const URL = 'https://accounts.spotify.com/api/token';
 
-const useSpotifyToken = (refreshToken: string) => {
+const useSpotifyToken = (initRefreshToken: string) => {
   const t = localStorage.getItem(ACCESS_KEY) ?? '';
   const [token, setToken] = useState(t);
+  const [refreshToken, setRefreshToken] = useState(initRefreshToken);
 
   useEffect(() => {
     localStorage.setItem(ACCESS_KEY, token);
@@ -22,12 +23,12 @@ const useSpotifyToken = (refreshToken: string) => {
 
   useEffect(() => {
     localStorage.setItem(REFRESH_KEY, refreshToken);
-  }, []);
+  }, [refreshToken]);
 
   const refresh = useCallback(async () => {
     const body = new URLSearchParams({
       grant_type: 'refresh_token',
-      refresh_token: localStorage.getItem(REFRESH_KEY) ?? '',
+      refresh_token: refreshToken,
       client_id: CLIENT_ID,
     });
 
@@ -45,13 +46,13 @@ const useSpotifyToken = (refreshToken: string) => {
 
     const json = (await res.json()) as IResult;
 
-    localStorage.setItem(REFRESH_KEY, json.refresh_token);
     setToken(json.access_token);
+    setRefreshToken(json.refresh_token);
 
     return json.access_token;
-  }, []);
+  }, [refreshToken]);
 
-  return [token, refresh] as const;
+  return [{ token, refreshToken }, refresh] as const;
 };
 
 export default useSpotifyToken;

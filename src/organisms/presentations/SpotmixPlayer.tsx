@@ -1,20 +1,24 @@
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import { WebPlaybackSDK } from 'react-spotify-web-playback-sdk';
 
-import { REFRESH_KEY } from '../../consts';
-import useSpotifyToken from '../../hooks/useSpotifyToken';
 import PlayerContainer from '../containers/PlayerContainer';
+import { useTokenContext } from '../providers/TokenProvider';
 
-const SpotmixPlayer = () => {
+const spotmixPlayer = () => {
   console.log('spotmix player');
 
-  const refreshToken = localStorage.getItem(REFRESH_KEY) ?? '';
-  const [token, refresh] = useSpotifyToken(refreshToken);
+  const tokenContext = useTokenContext();
+  if (!tokenContext) return null;
 
-  const getOAuthToken = useCallback(async (callback: (token: string) => void) => {
-    const t = await refresh();
-    callback(t);
-  }, []);
+  const { token, refresh } = tokenContext;
+
+  const getOAuthToken = useCallback(
+    async (callback: (token: string) => void) => {
+      const _token = await refresh();
+      callback(_token);
+    },
+    [token],
+  );
 
   return (
     <>
@@ -30,5 +34,7 @@ const SpotmixPlayer = () => {
     </>
   );
 };
+
+const SpotmixPlayer = memo(spotmixPlayer);
 
 export default SpotmixPlayer;
