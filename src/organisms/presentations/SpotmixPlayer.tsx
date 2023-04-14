@@ -1,36 +1,16 @@
-import { memo, useCallback } from 'react';
-import { WebPlaybackSDK } from 'react-spotify-web-playback-sdk';
+import { memo } from 'react';
 
 import PlayerContainer from '../containers/PlayerContainer';
-import { useTokenContext } from '../providers/TokenProvider';
+import { usePlaybackContext } from '../providers/PlaybackProvider';
 
 const spotmixPlayer = () => {
   console.log('spotmix player');
 
-  const tokenContext = useTokenContext();
-  if (!tokenContext) return null;
-
-  const { token, refresh } = tokenContext;
-
-  const getOAuthToken = useCallback(
-    async (callback: (token: string) => void) => {
-      const _token = await refresh();
-      callback(_token);
-    },
-    [token],
-  );
+  const context = usePlaybackContext();
 
   return (
     <>
-      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-      {/* @ts-ignore */}
-      <WebPlaybackSDK
-        initialDeviceName="Spotmix Player"
-        getOAuthToken={getOAuthToken}
-        initialVolume={0.5}
-      >
-        <PlayerContainer token={token} />
-      </WebPlaybackSDK>
+      <PlayerContainer token={context?.token ?? ''} />
     </>
   );
 };

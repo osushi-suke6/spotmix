@@ -1,15 +1,18 @@
 import { REFRESH_KEY } from '../consts';
 import SearchForm from '../organisms/presentations/SearchForm';
 import SpotmixPlayer from '../organisms/presentations/SpotmixPlayer';
-import { TokenProvider } from '../organisms/providers/TokenProvider';
+import { PlaybackProvider } from '../organisms/providers/PlaybackProvider';
 import MainSideTemplate from '../templates/MainSideTemplate';
 
 export default function PlayerPage() {
-  const refreshToken = localStorage.getItem(REFRESH_KEY) ?? '';
+  console.log('PlayerPage');
+  const refreshToken = localStorage.getItem(REFRESH_KEY);
+
+  if (!refreshToken) return <p>Authentication Failed</p>;
 
   return (
     <>
-      <TokenProvider refreshToken={refreshToken}>
+      <PlaybackProvider refreshToken={refreshToken}>
         <MainSideTemplate
           header={'Spotmix'}
           main={<SearchForm />}
@@ -17,7 +20,7 @@ export default function PlayerPage() {
           bottom={<SpotmixPlayer />}
           footer={'foot'}
         />
-      </TokenProvider>
+      </PlaybackProvider>
     </>
   );
 }

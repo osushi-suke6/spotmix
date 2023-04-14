@@ -1,35 +1,34 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { REFRESH_KEY } from '../../consts';
 import useScrollBottom from '../../hooks/useScrollBottom';
 import useSpotifySearch from '../../hooks/useSpotifySearch';
-import useSpotifyToken from '../../hooks/useSpotifyToken';
 import ISearchedTracks from '../../interfaces/ISearchedTracks';
 import SearchResults from '../presentations/SearchResults';
-import { useTokenContext } from '../providers/TokenProvider';
+import { usePlaybackContext } from '../providers/PlaybackProvider';
 
 interface IProps {
   query: string;
 }
 
 const searchResultsContainer = (props: IProps) => {
+  console.log('resultscontainer');
   const [results, setResults] = useState<ISearchedTracks[]>([]);
   const [result, search] = useSpotifySearch();
 
-  //const [token, refresh] = useSpotifyToken(localStorage.getItem(REFRESH_KEY) ?? '');
+  const context = usePlaybackContext();
 
-  const tokenContext = useTokenContext();
-  if (!tokenContext) return null;
-
-  const { token } = tokenContext;
+  console.log(result);
 
   const initPages = useCallback(() => {
     if (props.query === '') return;
 
     setResults([]);
-    search({ q: props.query }, token);
-  }, [props.query, token]);
+    search({ q: props.query }, context?.token ?? '');
+
+    console.log('init Pages');
+    console.log(context?.token);
+  }, [props.query, context?.token]);
 
   const updateResults = () => {
     if (!result) return;
@@ -43,7 +42,7 @@ const searchResultsContainer = (props: IProps) => {
       offset: (results.length * 20).toString(),
     };
 
-    search(params, token);
+    search(params, context?.token ?? '');
   };
 
   useEffect(initPages, [initPages]);

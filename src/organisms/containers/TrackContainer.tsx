@@ -1,10 +1,14 @@
 import { memo } from 'react';
-import { usePlayerDevice } from 'react-spotify-web-playback-sdk';
+import {
+  usePlaybackState,
+  usePlayerDevice,
+  useSpotifyPlayer,
+} from 'react-spotify-web-playback-sdk';
 import styled from 'styled-components';
 
 import useSpotifyPlay from '../../hooks/useSpotifyPlay';
 import Track from '../presentations/Track';
-import { useTokenContext } from '../providers/TokenProvider';
+import { usePlaybackContext } from '../providers/PlaybackProvider';
 
 interface IProps {
   track: string;
@@ -14,19 +18,26 @@ interface IProps {
 }
 
 const TrackContainer = memo(function track(props: IProps) {
-  //const device = usePlayerDevice();
-  const context = useTokenContext();
-  const { play, transfer } = useSpotifyPlay();
+  const context = usePlaybackContext();
+  const device = usePlayerDevice();
+  const player = useSpotifyPlayer();
+  const state = usePlaybackState();
 
   if (!context) return null;
-  //if (!device) return null;
+  if (!device) return null;
+  if (!player) return null;
 
-  const { token } = context;
+  const { play, transfer } = useSpotifyPlay();
+  const token = context.token;
 
   const handleClick = async () => {
-    //await transfer(token, '');
-    await play(token, [props.uri]);
-    console.log(`play ${props.track}`);
+    console.log(state);
+    if (!state) {
+      await transfer(token, device.device_id);
+    }
+
+    await play(token, [props.uri], device.device_id);
+    await player.resume();
   };
 
   return (
