@@ -2,7 +2,6 @@ import './assets/css/index.css';
 
 import { createBrowserRouter } from 'react-router-dom';
 
-import App from './pages/App';
 import CallbackPage from './pages/CallbackPage';
 import LoginPage from './pages/LoginPage';
 import PlayerPage from './pages/PlayerPage';
@@ -24,10 +23,6 @@ const router = createBrowserRouter([
   {
     path: '/player',
     element: <PlayerPage />,
-  },
-  {
-    path: '/app',
-    element: <App />,
   },
 ]);
 
