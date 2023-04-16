@@ -2,9 +2,8 @@ import { memo } from 'react';
 import { usePlayerDevice, useSpotifyPlayer } from 'react-spotify-web-playback-sdk';
 import styled from 'styled-components';
 
-import useSpotifyPlay from '../../hooks/useSpotifyPlay';
 import Track from '../presentations/Track';
-import { usePlaybackContext } from '../providers/PlaybackProvider';
+import { useSpotifyContext } from '../providers/SpotifyProvider';
 
 interface IProps {
   track: string;
@@ -14,20 +13,23 @@ interface IProps {
 }
 
 const TrackContainer = memo(function track(props: IProps) {
-  const context = usePlaybackContext();
   const device = usePlayerDevice();
   const player = useSpotifyPlayer();
+
+  const context = useSpotifyContext();
 
   if (!context) return null;
   if (!device) return null;
   if (!player) return null;
 
-  const { play } = useSpotifyPlay();
-  const token = context.token;
+  const startOrResume = context.api.player.startOrResume;
 
   const handleClick = async () => {
+    console.log('play');
     await player.activateElement();
-    await play(token, [props.uri], device.device_id);
+    await startOrResume([props.uri], device.device_id);
+
+    //await play(token, [props.uri], device.device_id);
   };
 
   return (

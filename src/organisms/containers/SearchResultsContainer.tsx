@@ -5,7 +5,7 @@ import useScrollBottom from '../../hooks/useScrollBottom';
 import useSpotifySearch from '../../hooks/useSpotifySearch';
 import ISearchedTracks from '../../interfaces/ISearchedTracks';
 import SearchResults from '../presentations/SearchResults';
-import { usePlaybackContext } from '../providers/PlaybackProvider';
+import { useSpotifyContext } from '../providers/SpotifyProvider';
 
 interface IProps {
   query: string;
@@ -16,7 +16,7 @@ const searchResultsContainer = (props: IProps) => {
   const [results, setResults] = useState<ISearchedTracks[]>([]);
   const [result, search] = useSpotifySearch();
 
-  const context = usePlaybackContext();
+  const context = useSpotifyContext();
 
   console.log(result);
 

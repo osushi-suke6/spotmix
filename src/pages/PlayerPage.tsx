@@ -1,7 +1,7 @@
 import { REFRESH_KEY } from '../consts';
 import SearchForm from '../organisms/presentations/SearchForm';
 import SpotmixPlayer from '../organisms/presentations/SpotmixPlayer';
-import { PlaybackProvider } from '../organisms/providers/PlaybackProvider';
+import { SpotifyProvider } from '../organisms/providers/SpotifyProvider';
 import MainSideTemplate from '../templates/MainSideTemplate';
 
 export default function PlayerPage() {
@@ -12,7 +12,7 @@ export default function PlayerPage() {
 
   return (
     <>
-      <PlaybackProvider refreshToken={refreshToken}>
+      <SpotifyProvider refreshToken={refreshToken}>
         <MainSideTemplate
           header={'Spotmix'}
           main={<SearchForm />}
@@ -20,7 +20,7 @@ export default function PlayerPage() {
           bottom={<SpotmixPlayer />}
           footer={'foot'}
         />
-      </PlaybackProvider>
+      </SpotifyProvider>
     </>
   );
 }

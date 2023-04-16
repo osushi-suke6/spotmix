@@ -13,6 +13,8 @@ interface IProps {
   token: string;
 }
 const playerContainer = (props: IProps) => {
+  console.log('playerContainer');
+
   const [isPaused, setIsPaused] = useState(true);
   const [playing, setPlaying] = useState<Spotify.Track | null>(null);
 
@@ -28,11 +30,16 @@ const playerContainer = (props: IProps) => {
 
       const _playing = state?.track_window.current_track ?? null;
       setPlaying(_playing);
+
+      console.log(state);
     };
+
+    console.log('add, listenr');
 
     player?.addListener('player_state_changed', onStateChange);
 
     return () => {
+      console.log('remove listener');
       player?.removeListener('player_state_changed', onStateChange);
     };
   }, [player]);

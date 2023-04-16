@@ -42,9 +42,11 @@ const useSpotifyToken = (initRefreshToken: string) => {
 
     const res = await fetch(URL, args);
 
-    if (!res.ok) throw Error('Refresh Failed');
+    //if (!res.ok) throw Error('Refresh Failed');
 
     const json = (await res.json()) as IResult;
+
+    console.log(json);
 
     setToken(json.access_token);
     setRefreshToken(json.refresh_token);
