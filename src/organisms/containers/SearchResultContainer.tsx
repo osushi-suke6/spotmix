@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 import ISearchedTracks from '../../interfaces/ISearchedTracks';
-import Track from '../presentations/Track';
+import TrackContainer from '../containers/TrackContainer';
 
 interface IProps {
   result: ISearchedTracks;
@@ -15,9 +15,10 @@ const SearchResultContainer = memo(function searchResultContainer(props: IProps)
           track: t.name,
           artist: t.artists.map((a) => a.name).join(', '),
           albumImgSrc: t.album.images[2].url,
+          uri: `spotify:track:${t.id}`,
         };
 
-        return <Track key={i} {...data} />;
+        return <TrackContainer key={i} {...data} />;
       })}
     </>
   );

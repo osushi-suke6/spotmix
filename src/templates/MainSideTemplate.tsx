@@ -70,6 +70,7 @@ const SBottomContainer = styled.div`
 
 const SBottom = styled.div`
   margin-top: auto;
+  padding-bottom: 16px;
 `;
 
 const SFooter = styled.div`

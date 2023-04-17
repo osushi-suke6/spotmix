@@ -16,6 +16,7 @@ interface ITrack {
   name: string;
   available_markets: string[];
   is_playable: boolean;
+  id: string;
 }
 
 interface IAlbum {

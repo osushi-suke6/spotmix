@@ -1,4 +1,4 @@
-import { memo, useCallback, useRef, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import styled from 'styled-components';
 
 import SearchBar from '../../molecules/SearchBar';
@@ -9,8 +9,8 @@ const SearchForm = memo(function searchForm() {
 
   const [query, setQuery] = useState('');
 
-  const handleEnter = useCallback((t: string) => {
-    setQuery(t);
+  const handleEnter = useCallback((input: string) => {
+    setQuery(input);
   }, []);
 
   return (
