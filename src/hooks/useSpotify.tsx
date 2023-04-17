@@ -9,38 +9,53 @@ export interface ISpotifyApi {
   };
   player: {
     startOrResume: (uris: string[], deviceId: string) => Promise<void>;
-    transfer: () => Promise<void>;
+    transfer: (deviceId: string) => Promise<void>;
   };
 }
 
 const useSpotify = (token: string) => {
-  const startOrResume = useCallback(async (uris: string[], deviceId: string) => {
-    await fetch(URL + '/me/player/play' + '?device_id=' + deviceId, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
+  const request = useCallback(
+    async (url: string, method: 'PUT', body?: BodyInit) => {
+      const res = await fetch(URL + url, {
+        method,
+        headers: { Authorization: `Bearer ${token}` },
+        body,
+      });
+
+      if (!res.ok) return Error('fetch is failed');
+
+      return res;
+    },
+    [token],
+  );
+
+  const startOrResume = useCallback(
+    async (uris: string[], deviceId: string) => {
+      const url = `/me/player/play?device_id=${deviceId}`;
+      const method = 'PUT';
+      const body = JSON.stringify({
         device_id: deviceId,
         uris,
-      }),
-    });
-  }, []);
+      });
 
-  const transfer = useCallback(async (token: string, deviceId: string) => {
-    const url = 'https://api.spotify.com/v1/me/player/';
+      await request(url, method, body);
+    },
+    [request],
+  );
 
-    await fetch(url, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
+  const transfer = useCallback(
+    async (deviceId: string) => {
+      const url = '/me/player';
+      const method = 'PUT';
+      const body = JSON.stringify({
         device_ids: [deviceId],
         play: true,
-      }),
-    });
-  }, []);
+      });
+
+      await request(url, method, body);
+    },
+    [request],
+  );
 
   const api = { player: { startOrResume, transfer } } as ISpotifyApi;
 

@@ -5,16 +5,10 @@ import {
   useSpotifyPlayer,
 } from 'react-spotify-web-playback-sdk';
 
-import useSpotifyPlay from '../../hooks/useSpotifyPlay';
-import useSpotifyQueue from '../../hooks/useSpotifyQueue';
 import Player from '../presentations/Player';
+import { useSpotifyContext } from '../providers/SpotifyProvider';
 
-interface IProps {
-  token: string;
-}
-const playerContainer = (props: IProps) => {
-  console.log('playerContainer');
-
+const playerContainer = () => {
   const [isPaused, setIsPaused] = useState(true);
   const [playing, setPlaying] = useState<Spotify.Track | null>(null);
 
@@ -22,7 +16,6 @@ const playerContainer = (props: IProps) => {
 
   useEffect(() => {
     const onStateChange = async () => {
-      console.log('changed');
       const state = await player?.getCurrentState();
 
       const _isPaused = state?.paused ?? isPaused;
@@ -30,32 +23,27 @@ const playerContainer = (props: IProps) => {
 
       const _playing = state?.track_window.current_track ?? null;
       setPlaying(_playing);
-
-      console.log(state);
     };
-
-    console.log('add, listenr');
 
     player?.addListener('player_state_changed', onStateChange);
 
     return () => {
-      console.log('remove listener');
       player?.removeListener('player_state_changed', onStateChange);
     };
   }, [player]);
 
-  const { transfer } = useSpotifyPlay();
   const device = usePlayerDevice();
   const state = usePlaybackState();
+  const context = useSpotifyContext();
 
   if (!player) return <p>player is not ready</p>;
   if (!device) return <p>device is not ready</p>;
+  if (!context) return <p>context is not ready</p>;
 
   const togglePlay = async () => {
-    if (!state) {
-      await transfer(props.token, device.device_id);
-    }
+    await player.activateElement();
 
+    if (!state) await context.api.player.transfer(device.device_id);
     await player.togglePlay();
   };
 

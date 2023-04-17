@@ -1,6 +1,6 @@
 import { REFRESH_KEY } from '../consts';
+import PlayerContainer from '../organisms/containers/PlayerContainer';
 import SearchForm from '../organisms/presentations/SearchForm';
-import SpotmixPlayer from '../organisms/presentations/SpotmixPlayer';
 import { SpotifyProvider } from '../organisms/providers/SpotifyProvider';
 import MainSideTemplate from '../templates/MainSideTemplate';
 
@@ -14,10 +14,10 @@ export default function PlayerPage() {
     <>
       <SpotifyProvider refreshToken={refreshToken}>
         <MainSideTemplate
-          header={'Spotmix'}
+          header={'s'}
           main={<SearchForm />}
-          sidebar={<p>side</p>}
-          bottom={<SpotmixPlayer />}
+          sidebar={<p>🚧 sidebar 🚧</p>}
+          bottom={<PlayerContainer />}
           footer={'foot'}
         />
       </SpotifyProvider>

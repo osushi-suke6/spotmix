@@ -12,22 +12,16 @@ interface IProps {
 }
 
 const searchResultsContainer = (props: IProps) => {
-  console.log('resultscontainer');
   const [results, setResults] = useState<ISearchedTracks[]>([]);
   const [result, search] = useSpotifySearch();
 
   const context = useSpotifyContext();
-
-  console.log(result);
 
   const initPages = useCallback(() => {
     if (props.query === '') return;
 
     setResults([]);
     search({ q: props.query }, context?.token ?? '');
-
-    console.log('init Pages');
-    console.log(context?.token);
   }, [props.query, context?.token]);
 
   const updateResults = () => {
