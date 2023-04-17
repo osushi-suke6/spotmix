@@ -14,11 +14,11 @@ export default function PlayerPage() {
     <>
       <SpotifyProvider refreshToken={refreshToken}>
         <MainSideTemplate
-          header={'s'}
+          header={'🚧 spotmix 🚧'}
           main={<SearchForm />}
           sidebar={<p>🚧 sidebar 🚧</p>}
           bottom={<PlayerContainer />}
-          footer={'foot'}
+          footer={'🚧footer🚧'}
         />
       </SpotifyProvider>
     </>
