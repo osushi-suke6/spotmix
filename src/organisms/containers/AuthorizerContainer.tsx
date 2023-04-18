@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const CLIENT_ID = '45841e6544c0477a983f3f89cfd22e26';
-const REDIRECT_URI = 'http://localhost:3000/callback';
-const SCOPE =
-  'streaming user-read-email user-read-private user-read-playback-state user-modify-playback-state';
+import { CLIENT_ID, REDIRECT_URI, SCOPE } from '../../consts';
 
 export default function AuthorizerContainer() {
   const [isReady, setIsReady] = useState(false);
