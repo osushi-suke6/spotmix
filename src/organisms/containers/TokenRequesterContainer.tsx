@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 
-const CLIENT_ID = '45841e6544c0477a983f3f89cfd22e26';
-const REDIRECT_URI = 'http://localhost:3000/callback';
+import { CLIENT_ID, REDIRECT_URI } from '../../consts';
 
 export default function TokenRequesterContainer() {
   useEffect(() => {
