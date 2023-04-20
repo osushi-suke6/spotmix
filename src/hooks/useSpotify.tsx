@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-const URL = 'https://api.spotify.com/v1';
+import { API_URI } from '../consts';
 
 export interface ISpotifyApi {
   search: {
@@ -16,7 +16,7 @@ export interface ISpotifyApi {
 const useSpotify = (token: string) => {
   const request = useCallback(
     async (url: string, method: 'PUT', body?: BodyInit) => {
-      const res = await fetch(URL + url, {
+      const res = await fetch(API_URI + url, {
         method,
         headers: { Authorization: `Bearer ${token}` },
         body,
