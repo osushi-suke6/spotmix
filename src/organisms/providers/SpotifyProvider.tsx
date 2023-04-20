@@ -27,8 +27,12 @@ const spotifyProvider = (props: IProps) => {
   const api = useSpotify(token);
 
   const getOAuthToken = useCallback(async (callback: (token: string) => void) => {
-    const _token = await refresh();
-    callback(_token);
+    try {
+      const _token = await refresh();
+      callback(_token);
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
   return (
@@ -36,7 +40,7 @@ const spotifyProvider = (props: IProps) => {
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
       {/* @ts-ignore */}
       <WebPlaybackSDK
-        initialDeviceName="Spotmix Player"
+        initialDeviceName="Spotmix"
         initialVolume={props.volume ?? 0.5}
         getOAuthToken={getOAuthToken}
       >
